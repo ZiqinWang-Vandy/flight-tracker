@@ -24,4 +24,13 @@ java FlightTracker.java 36.14 -86.80 15     # lat lon radius(nm)
 java DetectorTests.java                     # simulated-track tests
 ```
 
+## Data recording
+Both apps record every raw ADS-B snapshot for model training (arrival-time prediction is next): one CSV per UTC day, compressed to `.csv.gz` once the day is over (~5–10 MB/day). Set the location in a `local.properties` file in the project root (not committed):
+
+```
+dataDir=D:/FlightTrackerData
+```
+
+`java src/LandingStats.java` shows how much data has been collected and how many BNA landings it contains.
+
 (Running a multi-file program with `java X.java` needs Java 22+. On 17–21, compile first: `javac *.java`, then `java FlightTracker`.)

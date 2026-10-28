@@ -8,3 +8,7 @@ out/
 
 # Claude 的本地配置（里面有你电脑上的路径）
 .claude/
+
+# 每台电脑自己的设置，和录下来的数据（太大，不放 GitHub）
+local.properties
+data/

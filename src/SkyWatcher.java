@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -42,7 +43,16 @@ public class SkyWatcher {
         double radiusNm = args.length > 2 ? Double.parseDouble(args[2]) : 25;
         String url = args.length > 3 ? args[3]
                 : "https://api.adsb.lol/v2/point/" + lat + "/" + lon + "/" + (int) radiusNm;
-        return new SkyWatcher(lat, lon, radiusNm, new HttpJsonSource(url));
+
+        // 录制原始数据给以后训练模型用；数据目录有问题也不影响程序运行
+        Recorder recorder = null;
+        try {
+            recorder = Recorder.fromConfig();
+            System.out.println("Recording to " + recorder.dir());
+        } catch (IOException e) {
+            System.out.println("Recording disabled, can't use " + Recorder.dataDir() + ": " + e.getMessage());
+        }
+        return new SkyWatcher(lat, lon, radiusNm, new HttpJsonSource(url, recorder));
     }
 
     /** 拉一次数据并跑一遍探测器，返回这一轮新产生的提醒。 */
