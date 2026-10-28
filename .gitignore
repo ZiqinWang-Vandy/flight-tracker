@@ -1,0 +1,10 @@
+# 编译输出
+out/
+*.class
+
+# IntelliJ 的个人设置（每台电脑不一样）
+.idea/
+*.iml
+
+# Claude 的本地配置（里面有你电脑上的路径）
+.claude/

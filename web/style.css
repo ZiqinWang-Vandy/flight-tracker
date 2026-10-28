@@ -1,0 +1,249 @@
+:root {
+  --bg: #0b0e13;
+  --panel: #11151c;
+  --card: #171c25;
+  --card-hover: #1d2430;
+  --line: #232a36;
+  --text: #e6e9ef;
+  --muted: #7d8696;
+  --accent: #5eb0ff;
+
+  --emergency: #ff5d5d;
+  --go-around: #ffb547;
+  --holding: #5eb0ff;
+  --rare: #c08bff;
+
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 Inter, system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  height: 100vh;
+}
+
+/* ---------- 左侧面板 ---------- */
+
+.panel {
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+  padding: 20px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.sub { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.muted { color: var(--muted); font-weight: 400; }
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3ddc84;
+  box-shadow: 0 0 0 3px rgba(61, 220, 132, 0.15);
+}
+
+.status.offline .dot { background: var(--emergency); box-shadow: 0 0 0 3px rgba(255, 93, 93, 0.15); }
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+/* ---------- 提醒信息流 ---------- */
+
+.feed { display: flex; flex-direction: column; gap: 6px; }
+
+.feed li {
+  background: var(--card);
+  border-radius: 8px;
+  border-left: 3px solid var(--muted);
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.feed li:hover { background: var(--card-hover); }
+.feed li.empty { cursor: default; color: var(--muted); border-left-color: var(--line); font-size: 13px; }
+.feed li.empty:hover { background: var(--card); }
+
+.feed .meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.feed .meta time { color: var(--muted); font-family: var(--mono); font-weight: 400; letter-spacing: 0; }
+.feed .msg { font-size: 13px; }
+
+.kind-emergency { border-left-color: var(--emergency) !important; }
+.kind-go-around { border-left-color: var(--go-around) !important; }
+.kind-holding   { border-left-color: var(--holding) !important; }
+.kind-rare      { border-left-color: var(--rare) !important; }
+
+.label-emergency { color: var(--emergency); }
+.label-go-around { color: var(--go-around); }
+.label-holding   { color: var(--holding); }
+.label-rare      { color: var(--rare); }
+
+/* ---------- 选中飞机的详情卡 ---------- */
+
+.detail {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  position: relative;
+}
+
+.detail .close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.detail .close:hover { color: var(--text); }
+.detail .callsign { font-size: 22px; font-weight: 700; font-family: var(--mono); letter-spacing: -0.01em; }
+.detail .ident { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+
+.detail dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 8px;
+  margin: 0;
+}
+
+.detail dt { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.detail dd { margin: 2px 0 0; font-family: var(--mono); font-size: 14px; }
+.detail .squawk-alert { color: var(--emergency); font-weight: 600; }
+
+/* ---------- 飞机列表 ---------- */
+
+.list li {
+  display: grid;
+  grid-template-columns: 1fr 52px 76px 56px;
+  gap: 6px;
+  align-items: center;
+  padding: 7px 8px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.list li:hover, .list li.selected { background: var(--card); }
+.list .cs { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list .ty, .list .di { color: var(--muted); }
+.list .al, .list .di { text-align: right; }
+
+.foot { margin-top: auto; font-size: 11px; color: var(--muted); }
+.foot a { color: var(--muted); }
+
+/* ---------- 地图 ---------- */
+
+#map { height: 100%; background: var(--bg); }
+
+.leaflet-container { font-family: inherit; }
+
+/* 把浅色的 OpenStreetMap 底图反色成暗色 */
+.leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9) saturate(0.4); }
+.leaflet-control-attribution { background: rgba(11, 14, 19, 0.75) !important; color: var(--muted) !important; }
+.leaflet-control-attribution a { color: var(--muted) !important; }
+
+.ac { position: relative; width: 24px; height: 24px; }
+.ac svg { width: 24px; height: 24px; fill: #cfd6e2; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6)); transition: transform 0.4s; }
+.ac.ground svg { fill: #5b6474; }
+.ac.selected svg { fill: var(--accent); }
+.ac.kind-emergency svg { fill: var(--emergency); }
+.ac.kind-go-around svg { fill: var(--go-around); }
+.ac.kind-holding svg   { fill: var(--holding); }
+.ac.kind-rare svg      { fill: var(--rare); }
+
+.ac .lbl {
+  position: absolute;
+  left: 24px;
+  top: 4px;
+  font: 500 10.5px var(--mono);
+  color: #aab3c2;
+  white-space: nowrap;
+  text-shadow: 0 0 3px #000, 0 0 3px #000;
+  pointer-events: none;
+}
+
+.ac.ground .lbl { display: none; }
+
+.apt {
+  font: 600 11px var(--mono);
+  color: #e6e9ef;
+  background: rgba(23, 28, 37, 0.85);
+  border: 1px solid #3a4352;
+  border-radius: 4px;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+
+.home { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid #fff; }
+
+/* ---------- 手机 ---------- */
+
+@media (max-width: 760px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45vh 1fr;
+    height: 100dvh;
+  }
+  #map { grid-row: 1; }
+  .panel { grid-row: 2; border-right: 0; border-top: 1px solid var(--line); }
+}

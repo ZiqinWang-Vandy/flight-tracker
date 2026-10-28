@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overhead · 头顶的飞机</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="panel">
+    <header class="brand">
+      <div>
+        <h1>Overhead</h1>
+        <p class="sub">头顶的飞机 · Nashville</p>
+      </div>
+      <div class="status" id="status"><span class="dot"></span><span id="status-text">连接中…</span></div>
+    </header>
+
+    <section id="detail" class="detail" hidden></section>
+
+    <section>
+      <h2>提醒 <span class="muted" id="feed-count"></span></h2>
+      <ul id="feed" class="feed"></ul>
+    </section>
+
+    <section>
+      <h2>附近的飞机 <span class="muted" id="count"></span></h2>
+      <ul id="list" class="list"></ul>
+    </section>
+
+    <footer class="foot">数据来自 <a href="https://adsb.lol" target="_blank" rel="noopener">adsb.lol</a> (ODbL)</footer>
+  </aside>
+
+  <main id="map"></main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
